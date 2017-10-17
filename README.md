@@ -18,9 +18,15 @@ func main() {
     AwsSecretAccessKey: "YYYYYYYYYYYYYYYYYYYYYYYYY",
   })
 
-  client.Change(2)
+  _, err := client.Change(8, "add or set")
 }
 ```
+
+### add or set ?
+- add
+  - Now instance count add number
+- set
+  - Specify instance count
 
 ## Install
 

@@ -24,9 +24,14 @@ func (client Client) now() (int64, error) {
 	return *result.AutoScalingGroups[0].DesiredCapacity, nil
 }
 
-func (client Client) Change(change int) (bool, error) {
-	before_desired, _ := client.now()
-	after_desired := int(before_desired) + change
+func (client Client) Change(change int, mode string) (bool, error) {
+	var after_desired int
+	if mode == "set" {
+		after_desired = change
+	} else {
+		before_desired, _ := client.now()
+		after_desired = int(before_desired) + change
+	}
 
 	params := &autoscaling.UpdateAutoScalingGroupInput{
 		AutoScalingGroupName: aws.String(client.AgName),
